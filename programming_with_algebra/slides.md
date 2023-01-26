@@ -227,8 +227,10 @@ image: /category_theory_functor.png
 ## `Lift` content into a `context`
 
 <!-- 
-We we want/need to add some metadata to our content
-we have a triangle, maybe more than one
+We we want/need to add some metadata to our content.
+
+we have a triangle, maybe more than one.
+
 We have something which is nullable -->
 
 ---
@@ -250,6 +252,9 @@ image: /category_theory_functor.png
 <!-- 
 
 back again to this slide. 
+
+Can be seen as a mapping from one category to another.
+
 If i know how to transform a triangle into a square, i must know how to transform a boxed triangle in a boxed square, isn' it?
 
 -->
@@ -297,12 +302,12 @@ _(with some hitches)_
 
 ```rust {all|2|3|5-7}
 pub trait Functor {
-    type Unwrapped;
-    type Wrapped<B>: Functor;
+    type Unwrapped; // a
+    type Wrapped<B>: Functor; // f b
 
-    fn fmap<F, B>(self, f: F) -> Self::Wrapped<B>
+    fn fmap<F, B>(self, fun: F) -> Self::Wrapped<B>
     where
-        F: Fn(Self::Unwrapped) -> B;
+        F: Fn(Self::Unwrapped) -> B; // (a -> b)
 }
 ```
 
