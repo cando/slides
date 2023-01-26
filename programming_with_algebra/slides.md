@@ -32,15 +32,12 @@ Don't throw exceptions, don't use (global) state.
 
 So why study category theory? 
 
-1) Arise of functional programming
-2) Functional programming patterns for simplify and solve common challenges that we encounter in our code daily, such as nullable values, error handling, parallel and sequential operations and data validation -> (monoids, functor, applicative, monads, traversable)
-3) Strong relationship between (pure) functional programming and mathematics
-4) And category theory explains them all
+Let's start with a metaphore (doing things step by step and abstracting things i know how to do)
 -->
 
 ---
 
-## `Composition` and `abstraction` are the essence of `category theory` 
+## `Composition` and `abstraction` are the essence of `human reasoning` 
 
 ---
 
@@ -48,11 +45,23 @@ So why study category theory?
 
 ---
 
+## `Composition` and `abstraction` are the essence of `category theory` 
+
+<!-- 
+So again study category theory (be pragmatic)? 
+
+1) Arise of functional programming
+2) Functional programming patterns for simplify and solve common challenges that we encounter in our code daily, such as nullable values, error handling, parallel and sequential operations and data validation -> (monoids, functor, applicative, monads, traversable)
+3) Category theory explains them all -->
+
+---
+
 ## `Category theory`
 
-1. helps to __understand__ how and why things are done in a certain way
-2. __unlocks__ your abstract thinking
-3. It's funny and makes me __happy__ <uim-rocket />
+1. helps to `understand` how and why things are done in a certain way
+2. `unlocks` your abstract thinking
+3. lends to extremely useful programming `ideas` which are percolating into every language
+4. It's funny and makes me `happy` <uim-rocket class="text-purple-400"/>
 
 ---
 
@@ -65,7 +74,9 @@ So why study category theory?
 ---
 
 ## Arrows `compose`
-What defines a `category` is how the arrows (`morphism`) compose
+What defines a category is `how` the arrows (morphism) `compose`
+
+<!-- we don't mind what objects are! flowers? numbers? Chair? boxes? that's ok -->
 
 ---
 
@@ -81,6 +92,10 @@ image: /category_laws.png
 
 1. __Identity__ for composition
 2. __Associativity__ in composition 
+
+---
+
+<img src="/category_composition_example.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
 
@@ -162,6 +177,7 @@ enum Card {
 //     Queen
 // }
 ```
+
 Card has `2 + n` _(2 + 255)_ possible values
 
 <!-- tagged union, variant, enumerative -->
@@ -196,18 +212,53 @@ So `c1 != c2` (no address provided is not possible in _Contact2_)
 
 ---
 
-## Meet [`Algar`](https://github.com/cando/Algar) 
-
-A Rust crate exposing algebric structures, higher-kinded types and other category theory bad ideas.
-
-<!-- We'll use code from this library, but don't focuse on code, focus on understading the concepts -->
+<img src="/category_theory_two_elements.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
 
-## `Functor`
-1. a mapping between categories
-2. a type that can be mapped over
+<img src="/category_theory_two_elements_boxed.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
+---
+layout: image-right
+image: /category_theory_functor.png
+
+---
+
+## `Lift` content into a `context`
+
+<!-- 
+We we want/need to add some metadata to our content
+we have a triangle, maybe more than one
+We have something which is nullable -->
+
+---
+
+* `Option` _(Maybe)_
+* `List`
+* `Result` _(Either)_
+* `Future`
+* ...
+
+---
+layout: image-right
+image: /category_theory_functor.png
+
+---
+
+## `Lift` content into a `context`
+
+<!-- 
+
+back again to this slide. 
+If i know how to transform a triangle into a square, i must know how to transform a boxed triangle in a boxed square, isn' it?
+
+-->
+---
+
+## `Functor`
+1. placing stuffs into `boxes`
+2. a `mapping` between categories
+3. a type that can be `mapped` over
 
 <v-click>
 ```haskell
@@ -215,6 +266,32 @@ class Functor f where
     fmap :: (a -> b) -> f a -> f b
 ```
 </v-click>
+
+<!-- Ultra quick haskell syntax recap: http://cheat.sh/haskell/Type_signatures -->
+
+---
+layout: image-right
+image: /hkt.png
+
+---
+
+## `Higher` kinded types 101
+
+...and another great explanation [`here`](https://serokell.io/blog/kinds-and-hkts-in-haskell)
+
+<!-- Before moving on let's dive down into a little detail, to better understand Rust implementation. 
+
+Functor is a HKT!
+
+-->
+
+---
+
+### `HKT` are not representable in _Rust_
+
+[`GAT`](https://rust-lang.github.io/generic-associated-types-initiative/index.html) allows to simulate them
+
+_(with some hitches)_
 
 ---
 
@@ -228,4 +305,38 @@ pub trait Functor {
         F: Fn(Self::Unwrapped) -> B;
 }
 ```
+
+<!-- and yes Rust has map hardcoded into a couple of structures (Option, Result, Vec, etc.) -->
+
+---
+
+Applicatives
+
+---
+
+Monads
+
+(hardcoded in Rust in and_then)
+
+---
+
+Traversable 
+
+(hardcoded in Rust in Vec with collect::)
+
+---
+
+## Time to `exercise`
+
+<fluent-emoji-turtle />
+
+_A [`Turtle`](https://en.wikipedia.org/wiki/Turtle_graphics) tale_ 
+---
+
+## Meet [`Algar`](https://github.com/cando/Algar) 
+
+A _Rust_ crate exposing algebric structures, higher-kinded types and other category theory bad ideas
+
+<!-- We'll use code from this library, but don't focuse on code, focus on understading the concepts -->
+
 ---
