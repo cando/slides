@@ -105,7 +105,7 @@ image: /product.png
 ---
 ## `Product`
 
-A product of two objects `a` and `b` is the object `c` equipped with two projections such that for any other object `c’` equipped with two projections there is a unique morphism `m` from `c’` to `c` that factorizes those projections.
+A product of two objects `a` and `b` is the object `c` equipped with two projections such that for any other object `c’` equipped with two projections there is a unique morphism `m` from `c’` to `c` that factorizes those projections
 
 ---
 layout: image-right
@@ -114,17 +114,85 @@ image: /product_2.png
 ---
 ## `Product`
 
-A product of two objects `a` and `b` is the object `c` equipped with two projections such that for any other object `c’` equipped with two projections there is a unique morphism `m` from `c’` to `c` that factorizes those projections.
+A product of two objects `a` and `b` is the object `c` equipped with two projections such that for any other object `c’` equipped with two projections there is a unique morphism `m` from `c’` to `c` that factorizes those projections
+
+<!-- Example of morphism m Int -> (Int, True) -->
 
 ---
-
 
 ## `Product`
 
 ```rust
-class Functor f where
-    fmap :: (a -> b) -> f a -> f b
+struct Point {
+    x: u8,
+    y: u8,
+}
+
+struct Point(u8, u8);
 ```
+
+Point has `x * y` _(255 * 255)_ possible values
+
+
+<!-- A common thing to do in category theory is to reverse all the arrows and see what happens. Doing so for a the product gives us the co-product -->
+
+---
+layout: image-right
+image: /coproduct.png
+
+---
+## `Coproduct`
+
+A coproduct (sum) of two objects `a` and `b` is the object `c` equipped with two injections such that for any other object `c’` equipped with two injections there is a unique morphism `m` from `c` to `c’` that factorizes those injections
+
+<!-- The two injections can either be implemented as constructors or as functions. Let's see an example -->
+
+---
+
+## `Sum` types
+
+```rust{all|2|3|all}
+enum Card {
+    Number(u8), // injection `i`: u8 -> Card
+    Figure(FigureType), // injection `j`: FigureType -> Card
+}
+
+// enum FigureType {
+//     King,
+//     Queen
+// }
+```
+Card has `2 + n` _(2 + 255)_ possible values
+
+<!-- tagged union, variant, enumerative -->
+
+---
+
+```rust
+
+struct Contact1 {
+    Address : Option<String>,
+    Number : Option<u32>
+}
+
+enum Contact2{ 
+  AddressAndNumber(String, u32),
+  Address(String),
+  Number(u32),
+}
+
+```
+
+_Contact1_ has `c1 = (s + 1) * (i + 1)` values. <br />
+_Contact2_ has `c2 = (s * i) + s + i` values. <br />
+But `c1 = (s * i) + s + i + 1`. <br />
+So `c1 != c2` (no address provided is not possible in _Contact2_)
+
+<!-- possible in Contact1 {Address = None, Number = None} -->
+
+---
+
+## Make illegal states `unrepresentable`
 
 ---
 
