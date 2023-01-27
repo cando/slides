@@ -178,13 +178,26 @@ Point has `x * y` _(255 * 255)_ possible values
 <!-- A common thing to do in category theory is to reverse all the arrows and see what happens. Doing so for a the product gives us the co-product -->
 
 ---
-layout: image-right
-image: /coproduct.png
 
----
 ## `Coproduct`
 
+<div grid="~ cols-4 gap-4">
+<div class="col-span-2">
+
 A coproduct (sum) of two objects `a` and `b` is the object `c` equipped with two injections such that for any other object `c’` equipped with two injections there is a unique morphism `m` from `c` to `c’` that factorizes those injections
+
+</div>
+<div class="col-start-4">
+```mermaid {theme: 'dark', scale: 2}
+graph TB
+A(a) -- i --> C(c)
+A(a) -- i' --> C'(c')
+B(b) -- j --> C(c)
+C(c) -. m .-> C'(c')
+B(b) -- j' --> C'(c')
+```
+</div>
+</div>
 
 
 <!-- The two injections can either be implemented as constructors or as functions. Let's see an example -->
