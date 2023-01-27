@@ -114,22 +114,48 @@ A type formed by combining other types
 we'll use elementary school algebra to reason about functional data types. -->
 
 ---
-layout: image-right
-image: /product.png
 
----
 ## `Product`
+
+<div grid="~ cols-4 gap-4">
+<div class="col-span-2">
 
 A product of two objects `a` and `b` is the object `c` equipped with two projections such that for any other object `c’` equipped with two projections there is a unique morphism `m` from `c’` to `c` that factorizes those projections
 
----
-layout: image-right
-image: /product_2.png
+</div>
+<div class="col-start-4">
+```mermaid {theme: 'dark', scale: 2}
+graph TD
+C'(c') -. m .->  C(c)
+C'-- p' --> A(a)
+C-- p --> A(a)
+C-- q --> B(b)
+C'-- q' --> B(b)
+```
+</div>
+</div>
 
 ---
+
 ## `Product`
 
+<div grid="~ cols-4 gap-4">
+<div class="col-span-2">
+
 A product of two objects `a` and `b` is the object `c` equipped with two projections such that for any other object `c’` equipped with two projections there is a unique morphism `m` from `c’` to `c` that factorizes those projections
+
+</div>
+<div class="col-start-4">
+```mermaid {theme: 'dark', scale: 1.78}
+graph TD
+C'(Int) -. m .->  C((Int,Bool))
+C'-- p --> A(a)
+C-- fst --> A(Int)
+C-- snd --> B(Bool)
+C'-- q --> B(Bool)
+```
+</div>
+</div>
 
 <!-- Example of morphism m Int -> (Int, True) -->
 
