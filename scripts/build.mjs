@@ -14,7 +14,7 @@ const slideDirs = await glob('presentations/*', {
 
 echo``
 echo`[slides] ${green(`Clear last building files`)}`
-await $`rm -rf index.html .site presentations/*/index.html present/*/dist`
+await $`rm -rf index.html .site presentations/*/index.html presentations/*/dist`
 
 
 echo``
@@ -25,7 +25,7 @@ echo`[build] ${green(`found slides`)} ${yellow(`[
 
 echo``
 echo`[build] ${green(`Building index`)}`
-await $`slidev build --out .site index.md`
+await $`slidev build --base /slides/ --out .site index.md`
 
 
 for (let dir of slideDirs) {
@@ -36,7 +36,7 @@ for (let dir of slideDirs) {
 
     await within(async () => {
         await cd(dir)
-        await $`slidev build --base /${dir}/ index.md`
+        await $`slidev build --base /slides/${dir}/ index.md`
     })
 }
 
