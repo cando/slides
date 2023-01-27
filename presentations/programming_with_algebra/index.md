@@ -160,6 +160,7 @@ image: /coproduct.png
 
 A coproduct (sum) of two objects `a` and `b` is the object `c` equipped with two injections such that for any other object `c’` equipped with two injections there is a unique morphism `m` from `c` to `c’` that factorizes those injections
 
+
 <!-- The two injections can either be implemented as constructors or as functions. Let's see an example -->
 
 ---
@@ -219,12 +220,16 @@ So `c1 != c2` (no address provided is not possible in _Contact2_)
 <img src="/category_theory_two_elements_boxed.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
-layout: image-right
-image: /category_theory_functor.png
-
----
 
 ## `Lift` content into a `context`
+
+![](/category_theory_functor.png)
+
+<style>
+  img {
+    height: 460px;
+  }
+</style>
 
 <!-- 
 We we want/need to add some metadata to our content.
@@ -242,12 +247,17 @@ We have something which is nullable -->
 * ...
 
 ---
-layout: image-right
-image: /category_theory_functor.png
-
----
 
 ## `Lift` content into a `context`
+
+![](/category_theory_functor.png)
+
+<style>
+  img {
+    height: 460px;
+  }
+</style>
+
 
 <!-- 
 
@@ -275,18 +285,17 @@ class Functor f where
 <!-- Ultra quick haskell syntax recap: http://cheat.sh/haskell/Type_signatures -->
 
 ---
-layout: image-right
-image: /hkt.png
-
----
 
 ## `Higher` kinded types 101
 
-...and another great explanation [`here`](https://serokell.io/blog/kinds-and-hkts-in-haskell)
+![](/hkt.png)
+
 
 <!-- Before moving on let's dive down into a little detail, to better understand Rust implementation. 
 
 Functor is a HKT!
+
+...and another great explanation https://serokell.io/blog/kinds-and-hkts-in-haskell
 
 -->
 

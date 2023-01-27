@@ -1,0 +1,33 @@
+{
+    "name": "@cando/slides",
+    "version": "0.0.0",
+    "description": "slides for share",
+    "private": true,
+    "repository": "cando/slides",
+    "keywords": [
+        "markdown",
+        "slides"
+    ],
+    "author": "cando",
+    "homepage": "https://cando.github.io/slides",
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "scripts": {
+        "dev": "node scripts/dev.mjs",
+        "build": "node scripts/build.mjs",
+        "clean": "rm -rf index.html .site presentations/*/index.html presentations/*/dist"
+    },
+    "dependencies": {
+        "@slidev/cli": "^0.34.3",
+        "slidev-theme-eloc": "^1.0.1"
+    },
+    "devDependencies": {
+        "zx": "^7.0.7",
+        "@iconify-json/fluent-emoji": "^1.1.10",
+        "@iconify-json/mdi": "^1.1.44",
+        "@iconify-json/twemoji": "^1.1.10",
+        "@iconify-json/uim": "^1.1.3",
+        "playwright-chromium": "^1.30.0"
+    }
+}
