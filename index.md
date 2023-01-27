@@ -7,7 +7,7 @@ title: SLIDES BY CANDO
 
 <div class="scroll">
 
-- *2023.02* [Programming with algebra](/presentations/programming_with_algebra)
+- *2023.02* [Programming with algebra](/slides/presentations/programming_with_algebra)
 
 </div>
 
