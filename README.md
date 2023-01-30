@@ -1,4 +1,3 @@
 # Slides
 
-All my slides!
-
+[All my slides!](https://cando.github.io/slides/#/1)
