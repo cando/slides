@@ -99,7 +99,7 @@ image: /category_laws.png
 
 ---
 
-# Breath.
+# Breathe.
 
 ---
 
@@ -370,6 +370,8 @@ Applicatives
 Monads
 
 (hardcoded in Rust in and_then)
+
+<!-- https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_monads/ -->
 
 ---
 
