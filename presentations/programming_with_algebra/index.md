@@ -476,6 +476,8 @@ pub trait Monad: Applicative {
 }
 ```
 
+<!-- and_then in Rust is bind! -->
+
 ---
 
 ## A `generic` model of `computation` that lets you choose the environmental features that you want for your computations
@@ -499,9 +501,12 @@ But you would also be missing the point.
 
 ---
 
-Traversable 
-
-(hardcoded in Rust in Vec with collect::)
+## `Summary`
+1. `Category Theory` => how things compose
+2. `ADTs`            => compose types to make illegal states unrepresentable
+3. `Functor`         => lift values into a context
+4. `Applicative`     => indipendent values applied to a function in a context
+5. `Monad`           => sequencing contextful operations  
 
 ---
 
@@ -519,3 +524,8 @@ A _Rust_ crate exposing algebric structures, higher-kinded types and other categ
 <!-- We'll use code from this library, but don't focuse on code, focus on understading the concepts -->
 
 ---
+
+## Where to go `next`?
+
+![](/fantasy_land.png)
+
