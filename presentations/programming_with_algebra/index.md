@@ -363,15 +363,139 @@ pub trait Functor {
 
 ---
 
-Applicatives
+<img src="/category_theory_function_boxed.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
 
-Monads
+<img src="/category_theory_ap.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
-(hardcoded in Rust in and_then)
+---
 
-<!-- https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_monads/ -->
+## `Applicatives`
+1. applying `lifted` function
+2. `combine` more boxes into one
+3. fmap with `n-arity` functions
+
+<v-click>
+```haskell
+class (Functor f) => Applicative f where
+    (<*>) :: f (a -> b) -> f a -> f b
+
+liftA2 :: (Applicative f) => (a -> b -> c) -> f a -> f b -> f c
+```
+</v-click>
+
+---
+
+```rust {all|2-4|6-8}
+pub trait Apply: Functor {
+    fn ap<F, B>(self, f: Self::Wrapped<F>) -> Self::Wrapped<B>
+    where
+        F: FnOnce(Self::Unwrapped) -> B;
+
+    fn lift_a2<F, B, C>(self, b: Self::Wrapped<B>, f: F) -> Self::Wrapped<C>
+    where
+        F: FnOnce(Self::Unwrapped, B) -> C;
+}
+```
+
+<!-- 
+    // Since Rust doesnt'have (auto)currying, we are forced to manually implement
+    // lift_a3, lift_a4, etc.
+
+    // But in Rust we don't neet it, since lift is baked into the language via '?'
+    // let a = self?;
+    // let b = b?;
+    // Some(f(a, b)) -->
+---
+
+## `Pure`: how to create a box
+
+```haskell {2}
+class (Functor f) => Applicative f where
+    pure :: a -> f a  
+    (<*>) :: f (a -> b) -> f a -> f b
+```
+
+```rust {2}
+pub trait Applicative: Apply {
+    fn pure(value: Self::Unwrapped) -> Self::Wrapped<Self::Unwrapped>;
+}
+```
+
+---
+
+<img src="/category_theory_monad_1.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+
+<!-- not a functor, we want to dig into two levels
+not an applicative, they are not indipendent boxes, but one inside the other -->
+
+---
+
+<img src="/category_theory_monad_flatten.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+
+---
+
+<img src="/category_theory_monad_2.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+
+<!-- a flat + map operation -->
+
+---
+
+# Here you are, `Monads`!
+<!-- believe it or not, monad is just flattening boxes. -->
+
+---
+
+<img src="/category_theory_monad_chain.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+
+<!-- There's nothing magic. It's just that a lot of common, useful computations follow the pattern of performing sequences of tiny computations on values. -->
+
+---
+
+## `Monads`
+1. `flattening` boxes
+2. `chaining` computations (with effects) 
+
+<v-click>
+```haskell
+class (Applicative m) => Monad m where
+    bind :: m a -> (a -> m b) -> m b
+```
+</v-click>
+
+<!-- Every effect/box depends on the previous -->
+
+---
+
+```rust {all|2-4}
+pub trait Monad: Applicative {
+    fn bind<F, B: 'a>(self, f: F) -> Self::Wrapped<B>
+    where
+        F: FnOnce(Self::Unwrapped) -> Self::Wrapped<B>;
+}
+```
+
+---
+
+## A `generic` model of `computation` that lets you choose the environmental features that you want for your computations
+
+<!-- https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_monads/ 
+
+Here's where it gets cool. Different monads offer different kinds of environments in which to interpret the computations that you construct. 
+
+BUT:
+If you're accustomed to imperative programming languages, you're probably thinking, "Big deal, I can mix state into my computations already. I don't need monads to let me do it." And you would be right.
+
+But you would also be missing the point. 
+
+-->
+
+---
+
+## It's all about being `explicit`
+
+ <!-- You can build your environments to perfectly match your requirements. (And, if you're using a programming language like Haskell/Rust that offers a modern static type system in addition to monads, you can be assured of never accidentally mixing computations intended for different environments.) -->
 
 ---
 
