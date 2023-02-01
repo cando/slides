@@ -480,6 +480,29 @@ pub trait Monad: Applicative {
 
 ---
 
+### `Do` notation
+
+```haskell
+getsUsername path = do
+  contents <- readFile path
+  username <- readUsername contents
+  return username
+```
+<v-click>
+
+```rust
+/// `?` Operator
+fn read_username_from_file() -> Result<String, io::Error> {
+    let mut username_file = File::open("hello.txt")?;
+    let mut username = String::new();
+    username_file.read_to_string(&mut username)?;
+    Ok(username)
+}
+```
+</v-click>
+
+---
+
 ## A `generic` model of `computation` that lets you choose the environmental features that you want for your computations
 
 <!-- https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_monads/ 
