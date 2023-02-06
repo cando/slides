@@ -73,14 +73,17 @@ So again study category theory (be pragmatic)?
 
 ---
 
-## Arrows `compose`
-What defines a category is `how` the arrows (morphism) `compose`
-
-<!-- we don't mind what objects are! flowers? numbers? Chair? boxes? that's ok -->
+# Arrows `compose`
 
 ---
 
 <img src="/category_theory_composition.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+
+---
+
+## What defines a category is `how` the arrows (morphism) `compose`
+
+<!-- we don't mind what objects are! flowers? numbers? Chair? boxes? that's ok -->
 
 ---
 layout: image-right
@@ -287,6 +290,12 @@ We have something which is nullable -->
 
 ---
 
+# `Functor`
+
+putting stuff in boxes
+
+---
+
 ## `Lift` content into a `context`
 
 ![](/category_theory_functor.png)
@@ -345,6 +354,14 @@ Functor is a HKT!
 [`GAT`](https://rust-lang.github.io/generic-associated-types-initiative/index.html) allows to simulate them
 
 _(with some hitches)_
+
+---
+
+## Meet [`Algar`](https://github.com/cando/Algar) 
+
+A _Rust_ crate exposing algebric structures, higher-kinded types and other category theory bad ideas
+
+<!-- We'll use code from this library, but don't focuse on code, focus on understading the concepts -->
 
 ---
 
@@ -538,13 +555,6 @@ But you would also be missing the point.
 <fluent-emoji-turtle />
 
 _A [`Turtle`](https://en.wikipedia.org/wiki/Turtle_graphics) tale_ 
----
-
-## Meet [`Algar`](https://github.com/cando/Algar) 
-
-A _Rust_ crate exposing algebric structures, higher-kinded types and other category theory bad ideas
-
-<!-- We'll use code from this library, but don't focuse on code, focus on understading the concepts -->
 
 ---
 
