@@ -466,7 +466,8 @@ not an applicative, they are not indipendent boxes, but one inside the other -->
 
 <img src="/category_theory_monad_chain.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
-<!-- There's nothing magic. It's just that a lot of common, useful computations follow the pattern of performing sequences of tiny computations on values. -->
+<!-- There's nothing magic. It's just that a lot of common, useful computations 
+ follow the pattern of performing sequences of tiny computations on values. -->
 
 ---
 
@@ -561,4 +562,8 @@ _A [`Turtle`](https://en.wikipedia.org/wiki/Turtle_graphics) tale_
 ## Where to go `next`?
 
 ![](/fantasy_land.png)
+
+---
+
+## Bonus: `Foldable` and `Traversable`
 
