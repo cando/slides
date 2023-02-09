@@ -101,7 +101,18 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 
 ## What defines a category is `how` the arrows (morphism) `compose`
 
-<!-- we don't mind what objects are! flowers? numbers? Chair? boxes? that's ok -->
+<!-- 
+
+We don't mind what objects are! flowers? numbers? Chair? boxes? that's ok 
+
+Category theory is extreme in the sense that it actively discourages us from looking inside the objects. An object in category theory is an abstract nebulous entity. All you can ever know about it is how it relates to other object — how it connects with them using arrows.
+In object-oriented programming, an idealized object is only visible through its abstract interface (pure surface, no volume), with methods playing the role of arrows. The moment you have to dig into the implementation of the object in order to understand how to compose it with other objects, you’ve lost the advantages of your programming and abstraction paradigm.
+
+https://math.stackexchange.com/questions/1806382/what-is-a-composition-in-category-theory
+
+To define a category, you have to specify what composition is in that category. It's like the multiplication operation in a group: to define a group, it's not enough to just say you have a set and it is possible to multiply elements of the set; you have to actually say what you mean by "multiply" as part of the definition of the group.
+
+-->
 
 ---
 layout: image-right
@@ -123,12 +134,20 @@ image: /category_laws.png
 # Breathe.
 
 <!-- 
-Well, you'just meet your first algebraic structure. A category is an algebraic structure.
+Let summariza a bit
 
-An algebraic structure consists of a nonempty set A, 
-a collection of operations on A (typically binary operations such as addition and multiplication), 
-and a finite set of laws, that these operations must satisfy. -->
+1) Do not despair. In the remainder of the talk we'll simplify a bit and think of arrows, which are also called morphisms, as functions. You have a function f that takes an argument of type A and returns a B. 
+Sometimes Objects are types (in programming sense and I assure you this is a category (Hask in haskell)), other times objects
+are stuffs like boxes/cones/cilinders/etc.
 
+2) believe or not you'just meet your first algebraic structure. A category is an algebraic structure.
+
+3) An algebraic structure consists of a nonempty set A, 
+a collection of operations on A (typically binary operations), and a finite set of laws, that these operations must satisfy. 
+
+But before, let's dig into something a bit different...ADTs!
+
+-->
 
 ---
 
