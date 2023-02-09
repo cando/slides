@@ -1,15 +1,20 @@
 ---
 theme: eloc
-title: Programming with Algebra
+title: Programming with Algebras
 ---
 
-# Programming with Algebra
+# Programming with Algebras
 
 Stefano Candori
 
 <!--
-Algebra and math is present in our everyday programming, mainly in functional programming?
-Don't you believe it? Let's go!
+- Talk from Bartoz, LambdaCon 2015.
+- Algebra is the study of variables and the rules for manipulating these variables in formulas/equation
+- Algebra of data structures, Algebraic structures
+- Category theory formalizes algebraic structures
+
+https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-had-explained-about-functional-programming/
+
 -->
 
 ---
@@ -27,8 +32,9 @@ _— James Iry_
 
 ## You do not need to know <br/>`category theory` to <br/> write `good` functional `code`
 
-<!-- functional programming is just compose functions, compose and compose again. 
-Don't throw exceptions, don't use (global) state.
+<!-- 
+functional programming is just compose functions, compose and compose again. 
+No mutable data. No impure functions. Don't throw exceptions, don't use (global) state.
 
 So why study category theory? 
 
@@ -50,9 +56,18 @@ Let's start with a metaphore (doing things step by step and abstracting things i
 <!-- 
 So again study category theory (be pragmatic)? 
 
-1) Arise of functional programming
-2) Functional programming patterns for simplify and solve common challenges that we encounter in our code daily, such as nullable values, error handling, parallel and sequential operations and data validation -> (monoids, functor, applicative, monads, traversable)
-3) Category theory explains them all -->
+Functional programming patterns (algebraic structures) for simplify and 
+solve common challenges that we encounter in our code daily, 
+such as nullable values, error handling, parallel and sequential 
+operations and data validation -> (monoids, functor, applicative, monads, traversable).
+
+Software design patterns were popularised by a bunch of smart people. They observed common approaches to programming problems 
+and then wrote books about it. Like design patterns, algebraic structures also represent templates for solving a problem. 
+And they can be used in many different situations. Unlike design patterns though, algebraic structures have their basis in mathematics. 
+
+Category theory gives a formalization and allows us to understand and interpret those patterns!
+
+Algebraic structures help us in the same way all other abstractions help us. -->
 
 ---
 
@@ -104,6 +119,14 @@ image: /category_laws.png
 
 # Breathe.
 
+<!-- 
+Well, you'just meet your first algebraic structure. A category is an algebraic structure.
+
+An algebraic structure consists of a nonempty set A, 
+a collection of operations on A (typically binary operations such as addition and multiplication), 
+and a finite set of laws, that these operations must satisfy. -->
+
+
 ---
 
 ## `Algebrical Data Types`
@@ -113,8 +136,13 @@ A type formed by combining other types
 1. __Product__ types
 2. __Sum__ types
 
-<!-- One of the most amazing aspects of mathematics is that it applies to such a wide range of areas.
-we'll use elementary school algebra to reason about functional data types. -->
+<!-- 
+Algebrical data types are not algebraic structure, they only share the name :)
+
+One of the most amazing aspects of mathematics is that it applies to such a wide range of areas.
+we'll use elementary school algebra to reason about functional data types. 
+
+-->
 
 ---
 
@@ -255,6 +283,11 @@ So `c1 != c2` (no address provided is not possible in _Contact2_)
 
 ---
 
+## Phew.
+Now, back to `Algebraic` Structures
+
+---
+
 <img src="/category_theory_two_elements.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
@@ -330,7 +363,10 @@ class Functor f where
 ```
 </v-click>
 
-<!-- Ultra quick haskell syntax recap: http://cheat.sh/haskell/Type_signatures -->
+<!-- Ultra quick haskell syntax recap: http://cheat.sh/haskell/Type_signatures 
+Curryng: of translating the evaluation of a function that takes multiple arguments 
+into evaluating a sequence of functions, each with a single argument. 
+-->
 
 ---
 
@@ -359,7 +395,7 @@ _(with some hitches)_
 
 ## Meet [`Algar`](https://github.com/cando/Algar) 
 
-A _Rust_ crate exposing algebric structures, higher-kinded types and other category theory bad ideas
+A _Rust_ crate exposing algebraic structures, higher-kinded types and other category theory bad ideas
 
 <!-- We'll use code from this library, but don't focuse on code, focus on understading the concepts -->
 
@@ -376,7 +412,22 @@ pub trait Functor {
 }
 ```
 
-<!-- and yes Rust has map hardcoded into a couple of structures (Option, Result, Vec, etc.) -->
+<!-- 
+Trait: polymorphism, late binding in Rust
+
+Generics vs Associated Types
+
+https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=ccf25a2e1f5d35d757c58c200ffc0066
+
+Are equivalent to the late binding of methods above:
+
+- Associated typess enforces that for a given Self there is a single A associated
+- Generics instead, allows implementing Trait for Self for multiple A
+
+There is no right answer. Still, beyond the unicity argument, I would mention that associated types make using the trait easier as they decrease the number of parameters that have to be specified,
+
+
+and yes Rust has map hardcoded into a couple of structures (Option, Result, Vec, etc.) -->
 
 ---
 
@@ -385,6 +436,10 @@ pub trait Functor {
 ---
 
 <img src="/category_theory_ap.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+
+---
+
+<img src="/category_theory_ap_indipendent.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
 
