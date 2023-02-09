@@ -26,7 +26,10 @@ _— James Iry_
 
 ---
 
-<img src="/category_theory_composition.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+<div class="grid grid-cols-2 gap-4 justify-items-center items-center">
+    <img src="/category_theory_composition.png" class="rounded-3-xl shadow-xl h-80" />
+    <img src="/category_theory_two_elements_boxed.png" class="rounded-3-xl shadow-xl h-70" />
+</div>
 
 ---
 
@@ -325,7 +328,7 @@ We have something which is nullable -->
 
 # `Functor`
 
-putting stuff in boxes
+placing stuffs into `boxes`
 
 ---
 
@@ -521,14 +524,18 @@ not an applicative, they are not indipendent boxes, but one inside the other -->
 
 <img src="/category_theory_monad_chain.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
-<!-- There's nothing magic. It's just that a lot of common, useful computations 
- follow the pattern of performing sequences of tiny computations on values. -->
+<!-- A lot of common, useful computations 
+ follow the pattern of performing sequences of tiny computations on values, and monad simply abstract that!
+
+ bind/flatmap: connect the output of one computation to a function that consumes the output and then returns another computation.
+ 
+ -->
 
 ---
 
 ## `Monads`
 1. `flattening` boxes
-2. `chaining` computations (with effects) 
+2. `chaining` computations
 
 <v-click>
 ```haskell
@@ -537,7 +544,11 @@ class (Applicative m) => Monad m where
 ```
 </v-click>
 
-<!-- Every effect/box depends on the previous -->
+<!-- Every computation depends on the previous.
+
+ bind: connect the output of one computation to a function that consumes the output and then returns another computation.
+ 
+ -->
 
 ---
 
@@ -578,14 +589,28 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 ## A `generic` model of `computation` that lets you choose the environmental features that you want for your computations
 
-<!-- https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_monads/ 
+<!-- 
+All monad based environments support two fundamental operations: of and bind.
+- of/return : creates a computation which returns a value.
+- bind: connect the output of one computation to a function that consumes the output and then returns another computation.
 
+There's nothing magic about this. It's just that a lot of common, useful computations follow the pattern of performing sequences of tiny computations on values. And that's what return and bind let you do. They let you build up useful, complex computations.
 Here's where it gets cool. Different monads offer different kinds of environments in which to interpret the computations that you construct. 
+
+For example, the State monad lets you perform computations within an environment in which each computation has access to some blob of state. 
 
 BUT:
 If you're accustomed to imperative programming languages, you're probably thinking, "Big deal, I can mix state into my computations already. I don't need monads to let me do it." And you would be right.
 
 But you would also be missing the point. 
+
+Often, you don't need to work with state. And yet most programming languages force you to carry out all of your computations in an environment that makes you manage state anyway, at least in your head. When you don't need it, it's baggage. It's a burden. It's one more thing that can go wrong.
+
+If you're using monads, on the other hand, you can be explicit about when you need and do not need state – and other environmental features. 
+
+NEXT PAGE!
+
+https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_monads/ 
 
 -->
 
@@ -593,7 +618,18 @@ But you would also be missing the point.
 
 ## It's all about being `explicit`
 
- <!-- You can build your environments to perfectly match your requirements. (And, if you're using a programming language like Haskell/Rust that offers a modern static type system in addition to monads, you can be assured of never accidentally mixing computations intended for different environments.) -->
+ <!-- You can build your environments to perfectly match your requirements. 
+ 
+ (And, if you're using a programming language like Haskell/Rust that offers a 
+ modern static type system in addition to monads, you can be assured of never 
+ accidentally mixing computations intended for different environments.) 
+
+If you want an environment that supports exceptions, closures, and state, just stack up a few monads, and you've got it. 
+If you need continuations, I/O, and a stream of random integers, no problem: just set up a different stack. 
+
+Monad transformers, FTW (we'll see later in the exercise)
+
+ -->
 
 ---
 
