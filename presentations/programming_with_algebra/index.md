@@ -11,7 +11,8 @@ Stefano Candori
 - Talk from Bartoz, LambdaCon 2015.
 - Algebra is the study of variables and the rules for manipulating these variables in formulas/equation
 - Algebra of data structures, Algebraic structures
-- Category theory formalizes algebraic structures
+- Category theory trait d'union for interpreting and formalizing  equational algebra and algebraic structures
+- Rust examples
 
 https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-had-explained-about-functional-programming/
 
@@ -37,7 +38,7 @@ _— James Iry_
 
 <!-- 
 functional programming is just compose functions, compose and compose again. 
-No mutable data. No impure functions. Don't throw exceptions, don't use (global) state.
+No mutable data. Pure functions. Don't throw exceptions, don't use (global) state.
 
 So why study category theory? 
 
@@ -97,18 +98,12 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 
 <img src="/category_theory_composition.png" class="rounded-3-xl shadow-xl m-120 h-120" />
 
----
-
-## What defines a category is `how` the arrows (morphism) `compose`
-
 <!-- 
 
 We don't mind what objects are! flowers? numbers? Chair? boxes? that's ok 
 
-Category theory is extreme in the sense that it actively discourages us from looking inside the objects. An object in category theory is an abstract nebulous entity. All you can ever know about it is how it relates to other object — how it connects with them using arrows.
-In object-oriented programming, an idealized object is only visible through its abstract interface (pure surface, no volume), with methods playing the role of arrows. The moment you have to dig into the implementation of the object in order to understand how to compose it with other objects, you’ve lost the advantages of your programming and abstraction paradigm.
-
-https://math.stackexchange.com/questions/1806382/what-is-a-composition-in-category-theory
+An object in category theory is an abstract nebulous entity. All you can ever know about it is how it relates to other object — how it connects with them using arrows.
+In object-oriented programming, an idealized object is only visible through its abstract interface (pure surface, no volume), with methods playing the role of arrows.
 
 To define a category, you have to specify what composition is in that category. It's like the multiplication operation in a group: to define a group, it's not enough to just say you have a set and it is possible to multiply elements of the set; you have to actually say what you mean by "multiply" as part of the definition of the group.
 
@@ -128,6 +123,10 @@ image: /category_laws.png
 ---
 
 <img src="/category_composition_example.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+
+---
+
+<img src="/category_theory_monoid.jpg" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
 
@@ -228,7 +227,11 @@ struct Point(u8, u8);
 Point has `x * y` _(255 * 255)_ possible values
 
 
-<!-- A common thing to do in category theory is to reverse all the arrows and see what happens. Doing so for a the product gives us the co-product -->
+<!-- 
+
+Struct: defines a physically grouped list of variables under one name in a block of memory
+
+A common thing to do in category theory is to reverse all the arrows and see what happens. Doing so for a the product gives us the co-product -->
 
 ---
 
@@ -267,13 +270,14 @@ enum Card {
 
 // enum FigureType {
 //     King,
-//     Queen
+//     Queen,
+//     Jack,
 // }
 ```
 
-Card has `2 + n` _(2 + 255)_ possible values
+Card has `3 + n` _(3 + 255)_ possible values
 
-<!-- tagged union, variant, enumerative -->
+<!-- type which can be one of a few different variant (unions).  -->
 
 ---
 
@@ -367,6 +371,7 @@ placing stuffs into `boxes`
 back again to this slide. 
 
 Can be seen as a mapping from one category to another.
+To be a functor i have to know how to map objects but also how to map arrows/functions!
 
 If i know how to transform a triangle into a square, i must know how to transform a boxed triangle in a boxed square, isn' it?
 
@@ -376,7 +381,6 @@ If i know how to transform a triangle into a square, i must know how to transfor
 ## `Functor`
 1. placing stuffs into `boxes`
 2. a `mapping` between categories
-3. a type that can be `mapped` over
 
 <v-click>
 ```haskell
@@ -501,21 +505,6 @@ pub trait Apply: Functor {
     // let a = self?;
     // let b = b?;
     // Some(f(a, b)) -->
----
-
-## `Pure`: how to create a box
-
-```haskell {2}
-class (Functor f) => Applicative f where
-    pure :: a -> f a  
-    (<*>) :: f (a -> b) -> f a -> f b
-```
-
-```rust {2}
-pub trait Applicative: Apply {
-    fn pure(value: Self::Unwrapped) -> Self::Wrapped<Self::Unwrapped>;
-}
-```
 
 ---
 
@@ -546,7 +535,7 @@ not an applicative, they are not indipendent boxes, but one inside the other -->
 <!-- A lot of common, useful computations 
  follow the pattern of performing sequences of tiny computations on values, and monad simply abstract that!
 
- bind/flatmap: connect the output of one computation to a function that consumes the output and then returns another computation.
+ flatmap: connect the output of one computation to a function that consumes the output and then returns another computation.
  
  -->
 
@@ -564,9 +553,7 @@ class (Applicative m) => Monad m where
 </v-click>
 
 <!-- Every computation depends on the previous.
-
- bind: connect the output of one computation to a function that consumes the output and then returns another computation.
- 
+ bind = flatmap: connect the output of one computation to a function that consumes the output and then returns another computation.
  -->
 
 ---
@@ -592,7 +579,6 @@ getsUsername path = do
   return username
 ```
 <v-click>
-
 ```rust
 /// `?` Operator
 fn read_username_from_file() -> Result<String, io::Error> {
@@ -609,11 +595,10 @@ fn read_username_from_file() -> Result<String, io::Error> {
 ## A `generic` model of `computation` that lets you choose the environmental features that you want for your computations
 
 <!-- 
-All monad based environments support two fundamental operations: of and bind.
-- of/return : creates a computation which returns a value.
+All monad based environments support a fundamental operations:  bind.
 - bind: connect the output of one computation to a function that consumes the output and then returns another computation.
 
-There's nothing magic about this. It's just that a lot of common, useful computations follow the pattern of performing sequences of tiny computations on values. And that's what return and bind let you do. They let you build up useful, complex computations.
+It's just that a lot of common, useful computations follow the pattern of performing sequences of tiny computations on values. And that's what bind let you do. They let you build up useful, complex computations.
 Here's where it gets cool. Different monads offer different kinds of environments in which to interpret the computations that you construct. 
 
 For example, the State monad lets you perform computations within an environment in which each computation has access to some blob of state. 
