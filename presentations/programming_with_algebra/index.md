@@ -122,11 +122,15 @@ image: /category_laws.png
 
 ---
 
-<img src="/category_composition_example.png" class="rounded-3-xl shadow-xl m-120 h-120" />
+### Category of `types`
+
+![](/category_composition_example.png)
 
 ---
 
-<img src="/category_theory_monoid.jpg" class="rounded-3-xl shadow-xl m-120 h-120" />
+### 1-Object Category: `Monoid`
+
+![](/category_theory_monoid.jpg)
 
 ---
 
