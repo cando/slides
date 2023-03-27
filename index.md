@@ -8,6 +8,7 @@ title: SLIDES BY CANDO
 <div class="scroll">
 
 - *2023.02* [Programming with algebra](/slides/presentations/programming_with_algebra)
+- *2023.04* [The Expression problem](/slides/presentations/the_expression_problem)
 
 </div>
 
