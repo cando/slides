@@ -13,11 +13,11 @@ Stefano Candori
 
 ---
 
-## Data & Operations should be `extensible`!
+### Data and operations should be `extensible`
 
 ---
 
-## The Expression (`Extension`) problem
+### The Expression (`extension`) problem
 
 ---
 
@@ -29,7 +29,7 @@ Stefano Candori
 
 ---
 
-## `Open` for extension, `Closed` for modification
+### `Open` for extension, `Closed` for modification
 
 ---
 
@@ -41,7 +41,7 @@ Val ::= non-negative integer
 Add ::= Exp ‘+’ Exp
 ```
 
-And a set of operations on it (`pretty print`, `eval`, etc...)
+And a set of _operations_ on it (`pretty print`, `eval`, etc...)
 
 ---
 
@@ -81,7 +81,7 @@ public abstract class Neg: Expr{
 
 ```
 
-We can easily add new datatypes <uim-rocket class="text-purple-400"/>
+We can easily add new `datatypes` <uim-rocket class="text-purple-400"/>
 
 ---
 
@@ -95,7 +95,7 @@ public abstract class Expr{
 }
 ```
 
-But it's difficult to add new operations!
+But it's difficult to add new `operations`!
 We need to `edit` the existing code <mdi-skull-crossbones-outline class="text-red-400"/>
 
 ---
@@ -119,6 +119,42 @@ pub enum Expr {
 
 ## FP take
 
+```rust
+fn eval(expr: Expr) -> i32 {
+    match expr {
+        Expr::Val(i) => i,
+        Expr::Add(x, y) => eval(x) + eval(y),
+    }
+}
+fn render(expr: Expr) -> String {
+    match expr {
+        Expr::Val(i) => i.to_string(),
+        Expr::Add(x, y) => format!("{} + {}", render(x), render(y)),
+    }
+}
+```
+
+We can easily add new `operations` <uim-rocket class="text-purple-400"/>
+
+---
+
+## FP take
+
+```rust{4}
+pub enum Expr {
+    Val(i32),
+    Add(Box<Expr>, Box<Expr>),
+    Neg(i32), // NEW
+}
+```
+
+But it's difficult to add new `datatypes`!
+We need to `edit` the existing code <mdi-skull-crossbones-outline class="text-red-400"/>
+
+---
+
+## FP take
+
 ![](/expr-problem-fp.png)
 
 ---
@@ -129,21 +165,89 @@ pub enum Expr {
 
 ---
 
-Visitor pattern (OO to FP side)
+## Visitor pattern
+
+```csharp
+interface IExpr
+{
+    TResult Accept<TResult>(IVisitor<TResult> visitor);
+}
+
+interface IVisitor<TResult>
+{
+    TResult VisitVal(Val literal);
+    TResult VisitAdd(Add add);
+}
+
+```
 
 ---
 
-Solving the expression problem in Rust
+## Visitor pattern
+
+```csharp
+class Val : IExpr
+{
+    public Val(int n) {N = n;}
+
+    public int N { get;  }
+
+    public TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitVal(this);
+}
+
+class Add : IExpr{...}
+
+class EvalVisitor : IVisitor<int>
+{
+    public int VisitVal(Val val) => literal.N;
+
+    public int VisitAdd(Add add) => add.A.Accept(this) + add.B.Accept(this);
+}
+
+```
 
 ---
 
-Workshop (link to repo Algar examples)
+## Visitor pattern
+
+It's now easy to add new `operations`, but difficult to add new `datatypes` <mdi-skull-crossbones-outline class="text-red-400"/>
+
+```csharp{5}
+interface IVisitor<TResult>
+{
+    TResult VisitVal(Val literal);
+    TResult VisitAdd(Add add);
+    TResult VisitNeg(Neg neg); // NEW
+}
+
+```
 
 ---
 
-Resources:
+## We're back here (FP problem)
 
-* https://www.youtube.com/watch?v=EsanJ7_U89A
-* https://www.youtube.com/watch?v=FWW87fvBKJg
+![](/expr-problem-fp.png)
 
 ---
+
+## 3 ways to solve the expression problem
+
+1. `Coproduct` of Functors
+2. `Object` Algebras
+3. `Final Tagless` Encoding
+
+---
+
+## It's time to `Rust`
+
+![](/crab.png)
+---
+
+## Resources
+
+* [`Algar`](https://github.com/cando/Algar/tree/main/examples/expression_problem) examples
+* [`Final Tagless`](https://okmij.org/ftp/tagless-final/JFP.pdf) paper
+* [`Data types à la carte`](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/14416CB20C4637164EA9F77097909409/S0956796808006758a.pdf/data_types_a_la_carte.pdf) paper
+* Talks: [`1`](https://www.youtube.com/watch?v=FWW87fvBKJg
+), [`2`](https://www.youtube.com/watch?v=EsanJ7_U89A) 
+
