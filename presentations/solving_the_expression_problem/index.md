@@ -3,7 +3,11 @@ theme: eloc
 title: Solving The Expression Problem
 ---
 
-# The Expression Problem
+<style>
+h1 { text-align: center;}
+</style>
+
+# Solving The Expression Problem
 
 Stefano Candori
 
@@ -13,11 +17,15 @@ Stefano Candori
 
 ---
 
-### Data and operations should be `extensible`
+<style>
+h2 { text-align: center;}
+</style>
+
+## Data and operations should be `extensible`
 
 ---
 
-### The Expression (`extension`) problem
+## The Expression (`extension`) problem
 
 ---
 
