@@ -25,6 +25,10 @@ h2 { text-align: center;}
 
 ---
 
+### `Open` for extension, `Closed` for modification
+
+---
+
 ## The Expression (`extension`) problem
 
 ---
@@ -34,10 +38,6 @@ h2 { text-align: center;}
 1. Code-level `modularization` (don't modify existing code)
 2. Static `type safety`
 3. (Separate `compilation`)
-
----
-
-### `Open` for extension, `Closed` for modification
 
 ---
 
@@ -56,20 +56,20 @@ And a set of _operations_ on it (`pretty print`, `eval`, etc...)
 ## OO take
 
 ```csharp
-public abstract class Expr{
-    public abstract string PrettyPrint();
+public interface Expr{
+     string PrettyPrint();
 }
 
-public abstract class Val: Expr{
+public class Val: Expr{
     public int val;
-    public override string PrettyPrint(){
+    public string PrettyPrint(){
         return val.toString();
     }
 }
 
-public abstract class Add: Expr{
+public class Add: Expr{
     public Expr lhs, rhs;
-    public override string PrettyPrint(){
+    public string PrettyPrint(){
         return lhs.toString() + " + " + rhs.toString()
     }
 }
@@ -80,9 +80,9 @@ public abstract class Add: Expr{
 ## OO take
 
 ```csharp
-public abstract class Neg: Expr{
+public class Neg: Expr{
     public Expr operand;
-    public override string PrettyPrint(){
+    public string PrettyPrint(){
         return " - " + operand.toString();
     }
 }
@@ -95,11 +95,15 @@ We can easily add new `datatypes` <uim-rocket class="text-purple-400"/>
 
 ## OO take
 
-
-```csharp{3}
-public abstract class Expr{
-    public abstract string PrettyPrint();
-    public abstract int Eval();
+```csharp{3,9}
+public interface Expr{
+    string PrettyPrint();
+    int Eval();
+}
+public class Val: Expr{
+    public int val;
+    public string PrettyPrint(){ return val.toString();}
+    public int Eval(){ return val;}
 }
 ```
 
@@ -147,12 +151,16 @@ We can easily add new `operations` <uim-rocket class="text-purple-400"/>
 ---
 
 ## FP take
-
-```rust{4}
+```rust{4,8}
 pub enum Expr {
     Val(i32),
     Add(Box<Expr>, Box<Expr>),
     Neg(i32), // NEW
+}
+fn eval(expr: Expr) -> i32 {
+    match expr {
+        Expr::Neg(i) => -i,
+    }
 }
 ```
 
@@ -194,6 +202,7 @@ interface IVisitor<TResult>
 ## Visitor pattern
 
 ```csharp
+// DATATYPES
 class Val : IExpr
 {
     public Val(int n) {N = n;}
@@ -205,6 +214,14 @@ class Val : IExpr
 
 class Add : IExpr{...}
 
+```
+
+---
+
+## Visitor pattern
+
+```csharp
+// OPERATIONS
 class EvalVisitor : IVisitor<int>
 {
     public int VisitVal(Val val) => literal.N;
