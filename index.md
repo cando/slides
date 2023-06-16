@@ -9,6 +9,7 @@ title: SLIDES BY CANDO
 
 - *2023.02* [Programming with algebra](/slides/presentations/programming_with_algebra)
 - *2023.04* [Solving the Expression problem](/slides/presentations/solving_the_expression_problem)
+- *2023.06* [A Tale on Church Encoding](/slides/presentations/a_tale_on_church_encoding)
 
 </div>
 
