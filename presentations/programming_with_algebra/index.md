@@ -11,8 +11,7 @@ Stefano Candori
 - Talk from Bartoz, LambdaCon 2015.
 - Algebra is the study of variables and the rules for manipulating these variables in formulas/equation
 - Algebra of data structures, Algebraic structures
-- Category theory trait d'union for interpreting and formalizing  equational algebra and algebraic structures
-- Rust examples
+- Category theory trait d'union for interpreting and formalizing  equational algebra and algebraic structure
 
 https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-had-explained-about-functional-programming/
 
