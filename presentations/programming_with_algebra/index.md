@@ -20,7 +20,6 @@ https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-ha
 
 ---
 
-
 ## A `monad` is just a `monoid` in the category of `endofunctors`, what's the problem?
 
 _— James Iry_
@@ -122,15 +121,23 @@ image: /category_laws.png
 
 ---
 
-### Category of `types`
+### 1-Object Category: `Monoid`
 
-![](/category_composition_example.png)
+
+![](/monoid_pig.png)
 
 ---
 
-### 1-Object Category: `Monoid`
+### Addition `Monoid`
 
 ![](/category_theory_monoid.jpg)
+
+---
+
+### Category of Sets (`types` + `functions`)
+
+![](/category_composition_example.png)
+
 
 ---
 
@@ -400,64 +407,27 @@ into evaluating a sequence of functions, each with a single argument.
 
 ---
 
-## `Higher` kinded types 101
+## `Maybe` Functor
 
-![](/hkt.png)
+```haskell
+data  Maybe a  =  Nothing | Just a
 
-
-<!-- Before moving on let's dive down into a little detail, to better understand Rust implementation. 
-
-Functor is a HKT!
-
-...and another great explanation https://serokell.io/blog/kinds-and-hkts-in-haskell
-
--->
-
----
-
-### `HKT` are not representable in _Rust_
-
-[`GAT`](https://rust-lang.github.io/generic-associated-types-initiative/index.html) allows to simulate them
-
-_(with some hitches)_
-
----
-
-## Meet [`Algar`](https://github.com/cando/Algar) 
-
-A _Rust_ crate exposing algebraic structures, higher-kinded types and other category theory bad ideas
-
-<!-- We'll use code from this library, but don't focuse on code, focus on understading the concepts -->
-
----
-
-```rust {all|2|3|5-7}
-pub trait Functor {
-    type Unwrapped; // a
-    type Wrapped<B>: Functor; // f b
-
-    fn fmap<F, B>(self, fun: F) -> Self::Wrapped<B>
-    where
-        F: Fn(Self::Unwrapped) -> B; // (a -> b)
-}
+instance  Functor Maybe  where
+    fmap _ Nothing       = Nothing
+    fmap f (Just a)      = Just (f a)
 ```
 
-<!-- 
-Trait: polymorphism, late binding in Rust
+---
 
-Generics vs Associated Types
+## `List` Functor
 
-https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=ccf25a2e1f5d35d757c58c200ffc0066
+```haskell
+data List a = [] | a : List a
 
-Are equivalent to the late binding of methods above:
-
-- Associated typess enforces that for a given Self there is a single A associated
-- Generics instead, allows implementing Trait for Self for multiple A
-
-There is no right answer. Still, beyond the unicity argument, I would mention that associated types make using the trait easier as they decrease the number of parameters that have to be specified,
-
-
-and yes Rust has map hardcoded into a couple of structures (Option, Result, Vec, etc.) -->
+instance Functor List where
+    fmap _ []     = []
+    fmap f (x:xs) = f x : fmap f xs
+```
 
 ---
 
@@ -489,26 +459,23 @@ liftA2 :: (Applicative f) => (a -> b -> c) -> f a -> f b -> f c
 
 ---
 
-```rust {all|2-4|6-8}
-pub trait Apply: Functor {
-    fn ap<F, B>(self, f: Self::Wrapped<F>) -> Self::Wrapped<B>
-    where
-        F: FnOnce(Self::Unwrapped) -> B;
+## `Maybe` Applicative
 
-    fn lift_a2<F, B, C>(self, b: Self::Wrapped<B>, f: F) -> Self::Wrapped<C>
-    where
-        F: FnOnce(Self::Unwrapped, B) -> C;
-}
+```haskell
+instance Applicative Maybe where
+  (<*>) Nothing _ = Nothing
+  (<*>) _ Nothing = Nothing
+  (<*>) (Just f) (Just x) = Just (f x)
 ```
 
-<!-- 
-    // Since Rust doesnt'have (auto)currying, we are forced to manually implement
-    // lift_a3, lift_a4, etc.
-
-    // But in Rust we don't neet it, since lift is baked into the language via '?'
-    // let a = self?;
-    // let b = b?;
-    // Some(f(a, b)) -->
+<v-click>
+```haskell
+>> (*) <$> Just 4 <*> Just 5
+-- Just 20
+>> (*) <$> Nothing <*> Just 2
+-- Nothing
+```
+</v-click>
 
 ---
 
@@ -560,24 +527,13 @@ class (Applicative m) => Monad m where
  bind = flatmap: connect the output of one computation to a function that consumes the output and then returns another computation.
  -->
 
----
-
-```rust {all|2-4}
-pub trait Monad: Applicative {
-    fn bind<F, B: 'a>(self, f: F) -> Self::Wrapped<B>
-    where
-        F: FnOnce(Self::Unwrapped) -> Self::Wrapped<B>;
-}
-```
-
-<!-- and_then in Rust is bind! -->
 
 ---
 
 ### `Do` notation
 
 ```haskell
-getsUsername path = do
+getUsername path = do
   contents <- readFile path
   username <- readUsername contents
   return username
@@ -648,13 +604,6 @@ Monad transformers, FTW (we'll see later in the exercise)
 4. `Applicative`     => indipendent values applied to a function in a context
 5. `Monad`           => sequencing contextful operations  
 
----
-
-## Time to `exercise`
-
-<fluent-emoji-turtle />
-
-_A [`Turtle`](https://en.wikipedia.org/wiki/Turtle_graphics) tale_ 
 
 ---
 
@@ -662,7 +611,4 @@ _A [`Turtle`](https://en.wikipedia.org/wiki/Turtle_graphics) tale_
 
 ![](/fantasy_land.png)
 
----
-
-## Bonus: `Foldable` and `Traversable`
 

@@ -51,7 +51,7 @@ code { font-size: 2em;}
 ### Elixir
 
 ```elixir
-fn f -> fn y -> f.(x) end end
+fn f -> fn y -> f.(y) end end
 ```
 
 <style>
