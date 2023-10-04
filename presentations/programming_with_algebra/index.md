@@ -82,6 +82,22 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 
 ---
 
+## `Applied` Category Theory
+
+* Emerging field!
+* Explosion of papers, research, development in last 10 years
+* Builds a common vocabulary of composition across disciplines (e.g. databases, thermodynamics, quantum theory, digital circuits, distributed systems, ...)
+
+---
+
+## The `Plan`
+
+* I want to put `category theory` on your roadmap/radar
+* The big idea: `compositionality`
+* Case study: algebraic structures useful in `functional` programming
+
+---
+
 ## A `category` consists of `objects` and `arrows` that go between them
 
 ---
@@ -287,7 +303,7 @@ enum Card {
 
 Card has `3 + n` _(3 + 255)_ possible values
 
-<!-- type which can be one of a few different variant (unions).  -->
+<!-- type which can be one of a few different variant (discriminate unions).  -->
 
 ---
 
@@ -306,10 +322,14 @@ enum Contact2{
 
 ```
 
+<v-click>
+
 _Contact1_ has `c1 = (s + 1) * (i + 1)` values. <br />
 _Contact2_ has `c2 = (s * i) + s + i` values. <br />
 But `c1 = (s * i) + s + i + 1`. <br />
 So `c1 != c2` (no address provided is not possible in _Contact2_)
+
+</v-click>
 
 <!-- possible in Contact1 {Address = None, Number = None} -->
 
