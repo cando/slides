@@ -36,7 +36,7 @@ _— James Iry_
 
 <!-- 
 functional programming is just compose functions, compose and compose again. 
-No mutable data. Pure functions. Don't throw exceptions, don't use (global) state.
+No mutable data. Deterministict and Pure functions (no side effects). Bla blah
 
 So why study category theory? 
 
@@ -94,7 +94,7 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 
 * I want to put `category theory` on your roadmap/radar
 * The big idea: `compositionality`
-* Case study: algebraic structures useful in `functional` programming
+* Case study: algebraic structures in `functional` design patterns
 
 ---
 
@@ -117,9 +117,6 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 We don't mind what objects are! flowers? numbers? Chair? boxes? that's ok 
 
 An object in category theory is an abstract nebulous entity. All you can ever know about it is how it relates to other object — how it connects with them using arrows.
-In object-oriented programming, an idealized object is only visible through its abstract interface (pure surface, no volume), with methods playing the role of arrows.
-
-To define a category, you have to specify what composition is in that category. It's like the multiplication operation in a group: to define a group, it's not enough to just say you have a set and it is possible to multiply elements of the set; you have to actually say what you mean by "multiply" as part of the definition of the group.
 
 -->
 
@@ -159,15 +156,10 @@ image: /category_laws.png
 # Breathe.
 
 <!-- 
-Let summariza a bit
 
-1) Do not despair. In the remainder of the talk we'll simplify a bit and think of arrows, which are also called morphisms, as functions. You have a function f that takes an argument of type A and returns a B. 
-Sometimes Objects are types (in programming sense and I assure you this is a category (Hask in haskell)), other times objects
-are stuffs like boxes/cones/cilinders/etc.
+1) believe or not you'just meet your first algebraic structure. A category is an algebraic structure.
 
-2) believe or not you'just meet your first algebraic structure. A category is an algebraic structure.
-
-3) An algebraic structure consists of a nonempty set A, 
+2) An algebraic structure consists of a nonempty set A, 
 a collection of operations on A (typically binary operations), and a finite set of laws, that these operations must satisfy. 
 
 But before, let's dig into something a bit different...ADTs!
@@ -257,7 +249,10 @@ Point has `x * y` _(255 * 255)_ possible values
 
 Struct: defines a physically grouped list of variables under one name in a block of memory
 
-A common thing to do in category theory is to reverse all the arrows and see what happens. Doing so for a the product gives us the co-product -->
+A common thing to do in category theory is to reverse all the arrows and get the "dual" category.
+Given each "statement" you get another "statement" for free: 
+
+E.g. Doing so for a the product gives us the co-product -->
 
 ---
 
@@ -398,7 +393,7 @@ placing stuffs into `boxes`
 
 <!-- 
 
-back again to this slide. 
+Back again to this slide. 
 
 Can be seen as a mapping from one category to another.
 To be a functor i have to know how to map objects but also how to map arrows/functions!
@@ -420,7 +415,7 @@ class Functor f where
 </v-click>
 
 <!-- Ultra quick haskell syntax recap: http://cheat.sh/haskell/Type_signatures 
-Curryng: of translating the evaluation of a function that takes multiple arguments 
+Currying: translating the evaluation of a function that takes multiple arguments 
 into evaluating a sequence of functions, each with a single argument. 
 -->
 
