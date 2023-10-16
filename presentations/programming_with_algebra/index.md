@@ -94,7 +94,7 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 
 * I want to put `category theory` on your roadmap/radar
 * The big idea: `compositionality`
-* Case study: algebraic structures in `functional` design patterns
+* Case study: algebraic structures in functional design patterns (`functors`, `applicatives` and `monads`!)
 
 ---
 
@@ -395,12 +395,28 @@ placing stuffs into `boxes`
 
 Back again to this slide. 
 
+-->
+---
+
+## `Mapping` categories
+
+![](/category_theory_functor_2.jpg)
+
+<style>
+  img {
+    height: 460px;
+  }
+</style>
+
+<!-- 
+
 Can be seen as a mapping from one category to another.
 To be a functor i have to know how to map objects but also how to map arrows/functions!
 
 If i know how to transform a triangle into a square, i must know how to transform a boxed triangle in a boxed square, isn' it?
 
 -->
+
 ---
 
 ## `Functor`
@@ -573,7 +589,7 @@ All monad based environments support a fundamental operations:  bind.
 - bind: connect the output of one computation to a function that consumes the output and then returns another computation.
 
 It's just that a lot of common, useful computations follow the pattern of performing sequences of tiny computations on values. And that's what bind let you do. They let you build up useful, complex computations.
-Here's where it gets cool. Different monads offer different kinds of environments in which to interpret the computations that you construct. 
+Here's where it gets cool. Different monads offer different kinds of environments/side effects in which to interpret the computations that you construct. 
 
 For example, the State monad lets you perform computations within an environment in which each computation has access to some blob of state. 
 
