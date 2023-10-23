@@ -143,7 +143,7 @@ image: /category_laws.png
 
 ### Addition `Monoid`
 
-![](/category_theory_monoid.jpg)
+![](/category_theory_monoid.png)
 
 ---
 
@@ -401,7 +401,7 @@ Back again to this slide.
 
 ## `Mapping` categories
 
-![](/category_theory_functor_2.jpg)
+![](/category_theory_functor_2.png)
 
 <style>
   img {
