@@ -9,9 +9,10 @@ Stefano Candori
 
 <!--
 - Talk from Bartoz, LambdaCon 2015.
-- Algebra is the study of variables and the rules for manipulating these variables in formulas/equation
 - Algebra of data structures, Algebraic structures
-- Category theory trait d'union for interpreting and formalizing  equational algebra and algebraic structure
+- Category as quintessential algebraic structure
+- A talk on category theory
+
 
 https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-had-explained-about-functional-programming/
 
@@ -94,7 +95,7 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 
 * I want to put `category theory` on your roadmap/radar
 * The big idea: `compositionality`
-* Case study: algebraic structures in functional design patterns (`functors`, `applicatives` and `monads`!)
+* Case study: `ADTs` and algebraic structures in functional design patterns (`functors`, `applicatives` and `monads`!)
 
 ---
 
@@ -550,6 +551,7 @@ not an applicative, they are not indipendent boxes, but one inside the other -->
 ```haskell
 class (Applicative m) => Monad m where
     bind :: m a -> (a -> m b) -> m b
+    -- return :: a -> m a
 ```
 </v-click>
 
@@ -582,11 +584,11 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 ---
 
-## A `generic` model of `computation` that lets you choose the environmental features that you want for your computations
+## A `generic` model of `composition` that lets you choose the environmental features that you want for your computations
 
 <!-- 
-All monad based environments support a fundamental operations:  bind.
-- bind: connect the output of one computation to a function that consumes the output and then returns another computation.
+
+Monad is a simple and powerful design pattern for function composition.
 
 It's just that a lot of common, useful computations follow the pattern of performing sequences of tiny computations on values. And that's what bind let you do. They let you build up useful, complex computations.
 Here's where it gets cool. Different monads offer different kinds of environments/side effects in which to interpret the computations that you construct. 
@@ -610,7 +612,8 @@ https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_
 
 ---
 
-## It's all about being `explicit`
+## It's all about taming `complexity` 
+Monads help you increasing `modularity` and `reusability` by separating the `problem domain` from the implementation detail
 
  <!-- You can build your environments to perfectly match your requirements. 
  
@@ -626,9 +629,23 @@ Monad transformers, FTW (we'll see later in the exercise)
  -->
 
 ---
+layout: image-right
+image: /monad_endofunctor.png
+
+---
+
+## `Monads` Categorically
+
+It's an (endo)`functor` together with two natural transformations: `bind` and `return`
+
+---
+
+<img src="/understand_monads.png" class="rounded-3-xl shadow-xl" />
+
+---
 
 ## `Summary`
-1. `Category Theory` => how things compose
+1. `Category Theory` => how things compose & common vocabolary
 2. `ADTs`            => compose types to make illegal states unrepresentable
 3. `Functor`         => lift values into a context
 4. `Applicative`     => indipendent values applied to a function in a context
