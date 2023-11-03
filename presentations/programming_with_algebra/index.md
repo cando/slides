@@ -13,6 +13,8 @@ Stefano Candori
 - Category as quintessential algebraic structure
 - A talk on category theory
 
+-- TODO: 
+-- funtore ruota seconda immagine
 
 https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-had-explained-about-functional-programming/
 
@@ -188,6 +190,25 @@ we'll use elementary school algebra to reason about functional data types.
 
 ## `Product`
 
+```haskell
+data Point  = Point {
+    x :: U8,
+    y :: U8
+}
+```
+
+Point has `x * y` _(255 * 255)_ possible values
+
+
+<!-- 
+
+Struct: defines a physically grouped list of variables under one name in a block of memory
+-->
+
+---
+
+## `Product`
+
 <div grid="~ cols-4 gap-4">
 <div class="col-span-2">
 
@@ -228,32 +249,14 @@ C'-- q --> B(Bool)
 </div>
 </div>
 
-<!-- Example of morphism m Int -> (Int, True) -->
-
----
-
-## `Product`
-
-```rust
-struct Point {
-    x: u8,
-    y: u8,
-}
-
-struct Point(u8, u8);
-```
-
-Point has `x * y` _(255 * 255)_ possible values
-
-
-<!-- 
-
-Struct: defines a physically grouped list of variables under one name in a block of memory
+<!-- Example of morphism m Int -> (Int, True) 
 
 A common thing to do in category theory is to reverse all the arrows and get the "dual" category.
 Given each "statement" you get another "statement" for free: 
 
-E.g. Doing so for a the product gives us the co-product -->
+E.g. Doing so for a the product gives us the co-product 
+
+-->
 
 ---
 
@@ -277,24 +280,19 @@ B(b) -- j' --> C'(c')
 </div>
 </div>
 
-
 <!-- The two injections can either be implemented as constructors or as functions. Let's see an example -->
 
 ---
 
 ## `Sum` types
 
-```rust{all|2|3|all}
-enum Card {
-    Number(u8), // injection `i`: u8 -> Card
-    Figure(FigureType), // injection `j`: FigureType -> Card
-}
+```haskell{all|2|3|all}
+data Card = 
+    Number(U8) -- injection `i`: u8 -> Card
+  | Figure(FigureType) -- injection `j`: FigureType -> Card
 
-// enum FigureType {
-//     King,
-//     Queen,
-//     Jack,
-// }
+
+-- data FigureType = King | Queen | Jack,
 ```
 
 Card has `3 + n` _(3 + 255)_ possible values
@@ -303,19 +301,17 @@ Card has `3 + n` _(3 + 255)_ possible values
 
 ---
 
-```rust
+```haskell
 
-struct Contact1 {
-    Address : Option<String>,
-    Number : Option<u32>
+data Contact1 = Contact1 {
+    address :: Maybe String,
+    number :: Maybe Int
 }
 
-enum Contact2{ 
-  AddressAndNumber(String, u32),
-  Address(String),
-  Number(u32),
-}
-
+data Contact2 = 
+   AddressAndNumber String Int
+ | Address String
+ | Number Int
 ```
 
 <v-click>
@@ -405,7 +401,7 @@ Back again to this slide.
 
 <style>
   img {
-    height: 460px;
+    height: 560px;
   }
 </style>
 
@@ -423,6 +419,7 @@ If i know how to transform a triangle into a square, i must know how to transfor
 ## `Functor`
 1. placing stuffs into `boxes`
 2. a `mapping` between categories
+3. a `mappable` container
 
 <v-click>
 ```haskell
@@ -571,14 +568,14 @@ getUsername path = do
   return username
 ```
 <v-click>
-```rust
-/// `?` Operator
-fn read_username_from_file() -> Result<String, io::Error> {
-    let mut username_file = File::open("hello.txt")?;
-    let mut username = String::new();
-    username_file.read_to_string(&mut username)?;
-    Ok(username)
-}
+```fsharp
+// F# computation expression
+let readUserNameFromFile =
+    result {
+        let! username_file = openFile "hello.txt"
+        let! username = readUsername username_file
+        return username
+    }
 ```
 </v-click>
 
@@ -627,16 +624,6 @@ If you need continuations, I/O, and a stream of random integers, no problem: jus
 Monad transformers, FTW (we'll see later in the exercise)
 
  -->
-
----
-layout: image-right
-image: /monad_endofunctor.png
-
----
-
-## `Monads` Categorically
-
-It's an (endo)`functor` together with two natural transformations: `bind` and `return`
 
 ---
 
