@@ -78,7 +78,7 @@ Algebraic structures help us in the same way all other abstractions help us. -->
 
 ## `Category theory`
 
-1. helps to `understand` how and why things are done in a certain way
+1. helps to `understand` how to proper `structure` and `compose` your programs
 2. `unlocks` your abstract thinking
 3. lends to extremely useful programming `ideas` which are percolating into every language
 4. It's funny and makes me `happy` <uim-rocket class="text-purple-400"/>
