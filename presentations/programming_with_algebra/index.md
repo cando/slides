@@ -24,8 +24,6 @@ https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-ha
 
 ## A `monad` is just a `monoid` in the category of `endofunctors`, what's the problem?
 
-_— James Iry_
-
 ---
 
 <div class="grid grid-cols-2 gap-4 justify-items-center items-center">
@@ -139,13 +137,19 @@ image: /category_laws.png
 ### 1-Object Category: `Monoid`
 
 
-![](/monoid_pig.png)
+![](/category_theory_monoid_1.png)
 
 ---
 
 ### Addition `Monoid`
 
 ![](/category_theory_monoid.png)
+
+<!-- 
+Monoid: 
+- combining two values into one! 
+- two operations: identity and combine
+-->
 
 ---
 
@@ -292,7 +296,7 @@ data Card =
   | Figure(FigureType) -- injection `j`: FigureType -> Card
 
 
--- data FigureType = King | Queen | Jack,
+data FigureType = King | Queen | Jack,
 ```
 
 Card has `3 + n` _(3 + 255)_ possible values
@@ -498,8 +502,12 @@ instance Applicative Maybe where
 
 <v-click>
 ```haskell
->> (*) <$> Just 4 <*> Just 5
--- Just 20
+>> Person
+  <$> parseString "name" o
+  <*> parseInt "age" o
+  <*> parseTelephone "telephone" o
+-- Just (Person {name = "Joe", age = 12, telephone = ...})
+
 >> (*) <$> Nothing <*> Just 2
 -- Nothing
 ```
@@ -562,6 +570,7 @@ class (Applicative m) => Monad m where
 ### `Do` notation
 
 ```haskell
+-- haskell do notation
 getUsername path = do
   contents <- readFile path
   username <- readUsername contents
@@ -578,6 +587,40 @@ let readUserNameFromFile =
     }
 ```
 </v-click>
+
+---
+
+```scala
+// Scala for syntax
+for {
+  username_file <- openFile "hello.txt"
+  username <- readUsername username_file
+} yield username
+
+```
+<v-click>
+```rust
+/// Rust `?` Operator
+fn read_username_from_file() -> Result<String, io::Error> {
+    let mut username_file = File::open("hello.txt")?;
+    let mut username = String::new();
+    username_file.read_to_string(&mut username)?;
+    Ok(username)
+}
+```
+</v-click>
+<v-click>
+```csharp
+// C# LINQ query syntax
+from username_file in openFile("hello.txt")
+from username in readUsername(username_file)
+select username
+```
+</v-click>
+
+---
+
+<img src="/monads-everywhere.jpg" class="rounded-3-xl shadow-xl m-120 h-120" />
 
 ---
 
@@ -628,6 +671,17 @@ Monad transformers, FTW (we'll see later in the exercise)
 ---
 
 <img src="/understand_monads.png" class="rounded-3-xl shadow-xl" />
+
+---
+layout: image-right
+image: /monad_endofunctor.png
+
+---
+
+## `Monads` Categorically
+It's an (endo) `functor` (from a category to itself) together with two operations (`natural transformations`): 
+
+`bind`(combine two values into one) and `return` (the identity)
 
 ---
 
