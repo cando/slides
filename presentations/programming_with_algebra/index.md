@@ -679,9 +679,17 @@ image: /monad_endofunctor.png
 ---
 
 ## `Monads` Categorically
-It's an (endo) `functor` (from a category to itself) together with two operations (`natural transformations`): 
+An `(endo)functor` (from a category to itself) together with two `monoidal` operations (`natural transformations`)
 
-`bind`(combine two values into one) and `return` (the identity)
+1. `bind`: combine two values into one 
+2. `return`: the identity
+
+<style>
+  h2 + p {
+    margin-top: -2.5rem;
+    margin-bottom: 1.5rem;
+  }
+</style>
 
 ---
 
