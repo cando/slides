@@ -198,7 +198,7 @@ data Point  = Point {
 }
 ```
 
-Point has `x * y` _(255 * 255)_ possible values
+Point has `x * y` _(256 * 256)_ possible values
 
 
 <!-- 
@@ -296,7 +296,7 @@ data Card =
 data FigureType = King | Queen | Jack,
 ```
 
-Card has `3 + n` _(3 + 255)_ possible values
+Card has `3 + n` _(3 + 256)_ possible values
 
 <!-- type which can be one of a few different variant (discriminate unions).  -->
 
