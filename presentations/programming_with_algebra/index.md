@@ -13,9 +13,6 @@ Stefano Candori
 - Category as quintessential algebraic structure
 - A talk on category theory
 
--- TODO: 
--- funtore ruota seconda immagine
-
 https://jrsinclair.com/articles/2019/algebraic-structures-what-i-wish-someone-had-explained-about-functional-programming/
 
 -->
@@ -643,8 +640,6 @@ But you would also be missing the point.
 Often, you don't need to work with state. And yet most programming languages force you to carry out all of your computations in an environment that makes you manage state anyway, at least in your head. When you don't need it, it's baggage. It's a burden. It's one more thing that can go wrong.
 
 If you're using monads, on the other hand, you can be explicit about when you need and do not need state – and other environmental features. 
-
-NEXT PAGE!
 
 https://www.reddit.com/r/programming/comments/ox6s/ask_reddit_what_the_hell_are_monads/ 
 
